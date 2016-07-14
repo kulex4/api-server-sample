@@ -1,7 +1,12 @@
-*.class
+# Gradle artifacts
+.gradle
+build/
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
+# IntelliJ / Android Studio project files
+.idea/
+*.iml
+
+.DS_Store
 
 # Package Files #
 *.jar
