@@ -27,10 +27,20 @@ repositories {
 
 
 dependencies {
+	// Domain modelling + Spring Data JPA
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
-	compile('org.projectlombok:lombok:1.16.6')
-	compile('org.springframework.boot:spring-boot-starter-web')
+	compile("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
+
+	//compile('org.springframework.boot:spring-boot-starter-web')
 	runtime('com.h2database:h2')
+
+	// Spring Data REST.
+	compile("org.springframework.boot:spring-boot-starter-data-rest")
+	compile("org.springframework.data:spring-data-rest-hal-browser")
+
+	// Utils
+	compile('org.projectlombok:lombok:1.16.6')
+
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
