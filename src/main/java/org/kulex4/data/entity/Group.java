@@ -1,4 +1,4 @@
-package org.kulex4.data;
+package org.kulex4.data.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;

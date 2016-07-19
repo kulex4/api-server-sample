@@ -1,6 +1,6 @@
-package org.kulex4.repository;
+package org.kulex4.data.repository;
 
-import org.kulex4.data.Group;
+import org.kulex4.data.entity.Group;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
