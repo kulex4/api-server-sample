@@ -26,6 +26,11 @@ public class Group implements Serializable {
     public Group() {
     }
 
+    public Group(String code, String title) {
+        this.code = code;
+        this.title = title;
+    }
+
     public Long getId() {
         return id;
     }
