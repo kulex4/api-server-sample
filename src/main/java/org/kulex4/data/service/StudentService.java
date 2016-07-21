@@ -4,16 +4,18 @@ import org.kulex4.data.entity.Student;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
+import java.util.List;
+
 /**
  * Created by nikolai on 19.07.16.
  */
 public interface StudentService {
 
-    Iterable<Student> getAll();
+    List<Student> getAll();
 
-    Iterable<Student> getAll(Sort sort);
+    List<Student> getAll(Sort sort);
 
-    Iterable<Student> getAll(Pageable pageable);
+    List<Student> getAll(Pageable pageable);
 
     Student getById(Long id);
 

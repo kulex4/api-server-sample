@@ -7,6 +7,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
 /**
  * Created by nikolai on 19.07.16.
  */
@@ -21,18 +25,24 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Iterable<Student> getAll() {
-        return studentRepository.findAll();
+    public List<Student> getAll() {
+        Iterable<Student> groups = studentRepository.findAll();
+        return StreamSupport.stream(groups.spliterator(), false)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public Iterable<Student> getAll(Sort sort) {
-        return studentRepository.findAll(sort);
+    public List<Student> getAll(Sort sort) {
+        Iterable<Student> groups = studentRepository.findAll(sort);
+        return StreamSupport.stream(groups.spliterator(), false)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public Iterable<Student> getAll(Pageable pageable) {
-        return studentRepository.findAll(pageable);
+    public List<Student> getAll(Pageable pageable) {
+        Iterable<Student> groups = studentRepository.findAll(pageable);
+        return StreamSupport.stream(groups.spliterator(), false)
+                .collect(Collectors.toList());
     }
 
     @Override

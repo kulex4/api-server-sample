@@ -4,16 +4,18 @@ import org.kulex4.data.entity.Group;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
+import java.util.List;
+
 /**
  * Created by nikolai on 19.07.16.
  */
 public interface GroupService {
 
-    Iterable<Group> getAll();
+    List<Group> getAll();
 
-    Iterable<Group> getAll(Sort sort);
+    List<Group> getAll(Sort sort);
 
-    Iterable<Group> getAll(Pageable pageable);
+    List<Group> getAll(Pageable pageable);
 
     Group getById(Long id);
 

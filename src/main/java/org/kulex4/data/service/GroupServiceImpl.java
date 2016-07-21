@@ -7,6 +7,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
 /**
  * Created by nikolai on 19.07.16.
  */
@@ -21,18 +25,24 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public Iterable<Group> getAll() {
-        return groupRepository.findAll();
+    public List<Group> getAll() {
+        Iterable<Group> groups = groupRepository.findAll();
+        return StreamSupport.stream(groups.spliterator(), false)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public Iterable<Group> getAll(Sort sort) {
-        return groupRepository.findAll(sort);
+    public List<Group> getAll(Sort sort) {
+        Iterable<Group> groups = groupRepository.findAll(sort);
+        return StreamSupport.stream(groups.spliterator(), false)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public Iterable<Group> getAll(Pageable pageable) {
-        return groupRepository.findAll(pageable);
+    public List<Group> getAll(Pageable pageable) {
+        Iterable<Group> groups = groupRepository.findAll(pageable);
+        return StreamSupport.stream(groups.spliterator(), false)
+                .collect(Collectors.toList());
     }
 
     @Override
