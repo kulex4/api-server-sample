@@ -1,6 +1,7 @@
 package org.kulex4.data.service;
 
 import org.kulex4.data.entity.Group;
+import org.kulex4.data.service.exception.ResourceNotFoundException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
@@ -17,9 +18,9 @@ public interface GroupService {
 
     List<Group> getAll(Pageable pageable);
 
-    Group getById(Long id);
+    Group getById(Long id) throws ResourceNotFoundException;
 
-    void delete(Group group);
+    void delete(Long id) throws ResourceNotFoundException;
 
     Group saveOrUpdate(Group group);
 

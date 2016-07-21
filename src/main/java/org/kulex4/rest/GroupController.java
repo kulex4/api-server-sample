@@ -2,12 +2,12 @@ package org.kulex4.rest;
 
 import org.kulex4.data.entity.Group;
 import org.kulex4.data.service.GroupService;
+import org.kulex4.data.service.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 import java.util.List;
@@ -26,9 +26,39 @@ public class GroupController {
         this.groupService = groupService;
     }
 
-    @RequestMapping(path = {"", "/"})
+    @RequestMapping(
+            path = {"", "/"},
+            method = RequestMethod.GET
+    )
     public ResponseEntity<Collection<Group>> getAllGroups() {
         List<Group> groups = groupService.getAll();
         return new ResponseEntity<>(groups, HttpStatus.OK);
+    }
+
+    @RequestMapping(
+            path = {"{id}", "{id}/"},
+            method = RequestMethod.GET
+    )
+    public ResponseEntity<Group> getOneGroup(@PathVariable("id") Long id) throws ResourceNotFoundException {
+        return new ResponseEntity<>(groupService.getById(id), HttpStatus.OK);
+    }
+
+    @RequestMapping(
+            path = {"{id}", "{id}/"},
+            method = RequestMethod.DELETE
+    )
+    public ResponseEntity<Group> deleteGroup(@PathVariable("id") Long id) throws ResourceNotFoundException {
+        groupService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(
+            path = {"", "/"},
+            method = {RequestMethod.POST, RequestMethod.PUT},
+            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE
+    )
+    public ResponseEntity<Group> createOrUpdateGroup(@RequestBody Group group) {
+        Group savedGroup = groupService.saveOrUpdate(group);
+        return new ResponseEntity<>(savedGroup, HttpStatus.CREATED);
     }
 }

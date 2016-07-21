@@ -2,6 +2,7 @@ package org.kulex4.data.service;
 
 import org.kulex4.data.entity.Group;
 import org.kulex4.data.repository.GroupRepository;
+import org.kulex4.data.service.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -46,12 +47,20 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public Group getById(Long id) {
-        return groupRepository.findOne(id);
+    public Group getById(Long id) throws ResourceNotFoundException {
+        Group group = groupRepository.findOne(id);
+        if (group == null) {
+            throw new ResourceNotFoundException();
+        }
+        return group;
     }
 
     @Override
-    public void delete(Group group) {
+    public void delete(Long id) throws ResourceNotFoundException {
+        Group group = groupRepository.findOne(id);
+        if (group == null) {
+            throw new ResourceNotFoundException();
+        }
         groupRepository.delete(group);
     }
 
