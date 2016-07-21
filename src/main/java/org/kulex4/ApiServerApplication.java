@@ -2,7 +2,6 @@ package org.kulex4;
 
 import org.kulex4.data.entity.Group;
 import org.kulex4.data.entity.Student;
-import org.kulex4.data.repository.GroupRepository;
 import org.kulex4.data.service.GroupService;
 import org.kulex4.data.service.StudentService;
 import org.springframework.boot.CommandLineRunner;
@@ -30,6 +29,12 @@ public class ApiServerApplication {
             Student third = new Student("third", "third");
             Student fourth = new Student("fourth", "fourth");
             Arrays.asList(first, second, third, fourth).forEach(studentService::saveOrUpdate);
+
+            first.getGroups().add(aGroup);
+            aGroup.getStudents().add(first);
+            studentService.saveOrUpdate(first);
+            //groupService.saveOrUpdate(aGroup);
+
         };
 	}
 

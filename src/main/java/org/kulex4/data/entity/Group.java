@@ -1,5 +1,8 @@
 package org.kulex4.data.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -10,6 +13,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "groups")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Group implements Serializable {
 
     @Id
@@ -20,7 +24,7 @@ public class Group implements Serializable {
 
     private String title;
 
-    @ManyToMany(mappedBy="groups", targetEntity = Student.class, cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy="groups", cascade = CascadeType.ALL)
     private Set<Student> students = new HashSet<>();
 
     public Group() {
@@ -72,8 +76,7 @@ public class Group implements Serializable {
 
         if (id != null ? !id.equals(group.id) : group.id != null) return false;
         if (code != null ? !code.equals(group.code) : group.code != null) return false;
-        if (title != null ? !title.equals(group.title) : group.title != null) return false;
-        return students != null ? students.equals(group.students) : group.students == null;
+        return title != null ? title.equals(group.title) : group.title == null;
 
     }
 
@@ -82,7 +85,15 @@ public class Group implements Serializable {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (code != null ? code.hashCode() : 0);
         result = 31 * result + (title != null ? title.hashCode() : 0);
-        result = 31 * result + (students != null ? students.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Group{" +
+                "id=" + id +
+                ", code='" + code + '\'' +
+                ", title='" + title + '\'' +
+                '}';
     }
 }

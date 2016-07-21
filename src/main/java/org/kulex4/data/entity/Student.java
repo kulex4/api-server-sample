@@ -1,5 +1,8 @@
 package org.kulex4.data.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -10,6 +13,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "students")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Student implements Serializable {
 
     @Id
@@ -20,7 +24,7 @@ public class Student implements Serializable {
 
     private String lastName;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "student_group",
             joinColumns = @JoinColumn(name = "student_id", referencedColumnName = "id"),
@@ -77,8 +81,7 @@ public class Student implements Serializable {
 
         if (id != null ? !id.equals(student.id) : student.id != null) return false;
         if (firstName != null ? !firstName.equals(student.firstName) : student.firstName != null) return false;
-        if (lastName != null ? !lastName.equals(student.lastName) : student.lastName != null) return false;
-        return groups != null ? groups.equals(student.groups) : student.groups == null;
+        return lastName != null ? lastName.equals(student.lastName) : student.lastName == null;
 
     }
 
@@ -87,7 +90,15 @@ public class Student implements Serializable {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
-        result = 31 * result + (groups != null ? groups.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                '}';
     }
 }
